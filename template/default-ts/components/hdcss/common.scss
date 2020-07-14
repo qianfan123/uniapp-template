@@ -1,0 +1,90 @@
+@import 'components/hdcss/hd-icon/iconfont.css';
+
+.hd-flex-row {
+  display: flex;
+  align-items: center;
+}
+.hd-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.hd-flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 隐藏scrollview的滚动条 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/*一个横线*/
+@for $i from 1 through 5 {
+  .hd-line-#{$i} {
+    height: 1px;
+    transform: scaleY(1 / $i);
+    background-color: #ddd;
+  }
+}
+// 间隙
+@for $i from 1 through 51 {
+  .hd-gap-#{$i} {
+    height: $i * 2 + rpx;
+    background-color: #f7f7f7;
+  }
+}
+
+// 显示几行
+@for $i from 1 through 11 {
+  .hd-clamp-#{$i} {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: pre-line;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $i;
+  }
+}
+
+// image大小
+@for $i from 10 through 121 {
+  .hd-image-#{$i} {
+    width: $i * 2 + rpx;
+    height: $i * 2 + rpx;
+  }
+}
+
+// 定义字体(px)单位
+@for $i from 9 to 100 {
+  .hd-font-#{$i} {
+    font-size: $i + px;
+  }
+}
+
+// 字重
+@for $i from 300 to 701 {
+  .hd-weight-#{$i} {
+    font-weight: $i;
+  }
+}
+
+@for $i from 1 to 100 {
+  .hd-br-#{$i} {
+    border-radius: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-ml-#{$i} {
+    margin-left: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-mt-#{$i} {
+    margin-top: $i * 2 + rpx;
+  }
+}
