@@ -4,15 +4,50 @@
   display: flex;
   align-items: center;
 }
+.hd-flex-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hd-flex-row-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.hd-flex-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+// 纵向布局
 .hd-flex-column {
   display: flex;
   flex-direction: column;
 }
+// 纵向居中
 .hd-flex-column-center {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+// 增加点击区域的热点,设置在view上，不能用于image
+.hd-click-expand {
+  position: relative;
+}
+.hd-click-expand::before {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
+}
+
+@for $i from 0 through 5 {
+  .hd-flex-#{$i} {
+    flex: $i;
+  }
 }
 
 /* 隐藏scrollview的滚动条 */
@@ -86,5 +121,96 @@
 @for $i from 1 to 100 {
   .hd-mt-#{$i} {
     margin-top: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-mr-#{$i} {
+    margin-right: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-mb-#{$i} {
+    margin-bottom: $i * 2 + rpx;
+  }
+}
+
+@for $i from 1 to 100 {
+  .hd-pd-#{$i} {
+    padding-left: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-pd-#{$i} {
+    padding-top: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-pd-#{$i} {
+    padding-right: $i * 2 + rpx;
+  }
+}
+@for $i from 1 to 100 {
+  .hd-pd-#{$i} {
+    padding-bottom: $i * 2 + rpx;
+  }
+}
+
+@for $i from 1 to 10 {
+  .hd-opacity-#{$i} {
+    opacity: $i * 0.1;
+  }
+}
+
+$aligns: left, right, center;
+@each $value in $aligns {
+  .hd-ta-#{$value} {
+    text-align: $value;
+  }
+}
+
+$theme-colors: (
+  'white': #fff,
+  'main': #ff671b,
+  'error': #f00a0a,
+  'warning': #f19600,
+  'success': #08a440,
+  'msg': #00a1ba,
+  'link': #0187c6,
+  'black': #202124,
+  'blacksub': #32353a,
+  'grey': #65686f,
+  'light': #a1a1a1,
+  'ccc': #cccccc,
+  'gap': #e5e5e5,
+  'gap-light': #efeff1,
+  'page': #f5f5f5,
+  'CFD3DB': #cfd3db,
+  'F2D9C6': #f2d9c6,
+  'gd-main':
+    linear-gradient(
+      135deg,
+      rgba(255, 160, 58, 1) 0%,
+      rgba(255, 103, 27, 1) 100%
+    ),
+  'gd-main-column':
+    linear-gradient(
+      360deg,
+      rgba(255, 160, 58, 0) 0%,
+      rgba(255, 150, 53, 1) 32%,
+      rgba(255, 103, 27, 1) 100%
+    ),
+  'gd-black':
+    linear-gradient(135deg, rgba(63, 65, 81, 1) 0%, rgba(25, 28, 46, 1) 100%)
+);
+
+@each $key, $value in $theme-colors {
+  .hd-color-#{$key} {
+    color: $value;
+  }
+}
+
+@each $key, $value in $theme-colors {
+  .hd-bg-#{$key} {
+    background: $value;
   }
 }

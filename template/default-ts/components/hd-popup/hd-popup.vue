@@ -9,7 +9,12 @@
       class="hd-popup-content"
       :class="popupContentClass"
       :style="[
-        { height: height, width: width, backgroundColor: backgroundColor }
+        {
+          height: height,
+          width: width,
+          backgroundColor: backgroundColor,
+          borderRadius: borderRadius
+        }
       ]"
     >
       <slot></slot>
@@ -18,7 +23,7 @@
       v-if="maskShow"
       class="hd-popup-mask"
       :class="popupMaskClass"
-      @tap="close(maskClick)"
+      @tap="cliclMask"
     ></view>
   </view>
 </template>
@@ -34,6 +39,10 @@ export default {
     transition: {
       type: String,
       default: 'slider' // none slider fade
+    },
+    borderRadius: {
+      type: String,
+      default: ''
     },
     backgroundColor: {
       type: String,
@@ -165,19 +174,20 @@ export default {
         _this.newTransition = false
       }, 50)
     },
-
-    close: function (v = true) {
-      let close = v
-      if (close) {
-        this.newTransition = true
-        let _this = this
-        setTimeout(function () {
-          _this.newActive = false
-          if (typeof _this.closeCallback === 'function') {
-            _this.closeCallback()
-          }
-        }, 300)
+    cliclMask() {
+      if (this.maskClick) {
+        this.close()
       }
+    },
+    close: function () {
+      this.newTransition = true
+      let _this = this
+      setTimeout(function () {
+        _this.newActive = false
+        if (typeof _this.closeCallback === 'function') {
+          _this.closeCallback()
+        }
+      }, 300)
     }
   }
 }

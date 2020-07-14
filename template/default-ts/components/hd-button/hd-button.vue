@@ -1,13 +1,14 @@
 <template>
   <button
+    v-if="showBtn"
     id="hd-wave-btn"
-    class="hd-btn hd-line-1 hd-fix-ios-appearance"
+    class="hd-btn"
     :class="[
       'hd-size-' + size,
       plain ? 'hd-' + type + '-plain' : '',
       loading ? 'hd-loading' : '',
       shape == 'circle' ? 'hd-round-circle' : '',
-      hairLine ? showHairLineBorder : 'hd-bold-border',
+      hairLine ? showHairLineBorder : 'hd-bold-border'
     ]"
     :disabled="disabled"
     :form-type="formType"
@@ -36,11 +37,11 @@
       class="hd-wave-ripple"
       :class="[waveActive ? 'hd-wave-active' : '']"
       :style="{
-        'top': rippleTop + 'px',
-        'left': rippleLeft + 'px',
-        'width': fields.targetWidth + 'px',
-        'height': fields.targetWidth + 'px',
-        'background-color': (rippleBgColor || 'rgba(0, 0, 0, 0.15)')
+        top: rippleTop + 'px',
+        left: rippleLeft + 'px',
+        width: fields.targetWidth + 'px',
+        height: fields.targetWidth + 'px',
+        'background-color': rippleBgColor || 'rgba(0, 0, 0, 0.15)'
       }"
     ></view>
   </button>
@@ -201,9 +202,13 @@ export default {
     // 当没有传bgColor变量时，按钮按下去的颜色类名
     getHoverClass() {
       // 如果开启水波纹效果，则不启用hover-class效果
-      if (this.loading || this.disabled || this.ripple || this.hoverClass) return ''
+      if (this.loading || this.disabled || this.ripple || this.hoverClass) {
+        return ''
+      }
       let hoverClass = ''
-      hoverClass = this.plain ? 'hd-' + this.type + '-plain-hover' : 'hd-' + this.type + '-hover'
+      hoverClass = this.plain
+        ? 'hd-' + this.type + '-plain-hover'
+        : 'hd-' + this.type + '-hover'
       return hoverClass
     },
     // 按钮主题
@@ -213,16 +218,21 @@ export default {
         style.color = '#c0c4cc'
         style.backgroundColor = '#ffffff'
         style.borderColor = '#e4e7ed'
+        style.opacity = 0.4
       } else {
         style.color = '#000'
         style.backgroundColor = '#ffffff'
         style.borderColor = '#c0c4cc'
+        style.opacity = 1
       }
       return Object.assign(style, this.customStyle)
     },
     // 在'primary', 'success', 'error', 'warning'类型下，不显示边框，否则会造成四角有毛刺现象
     showHairLineBorder() {
-      if (['primary', 'success', 'error', 'warning'].indexOf(this.type) >= 0 && !this.plain) {
+      if (
+        ['primary', 'success', 'error', 'warning'].indexOf(this.type) >= 0 &&
+        !this.plain
+      ) {
         return ''
       } else {
         return 'hd-hairline-border'
@@ -234,8 +244,15 @@ export default {
       rippleTop: 0, // 水波纹的起点Y坐标到按钮上边界的距离
       rippleLeft: 0, // 水波纹起点X坐标到按钮左边界的距离
       fields: {}, // 波纹按钮节点信息
+      showBtn: false,
       waveActive: false // 激活水波纹
     }
+  },
+  mounted() {
+    // 解决按钮出现的闪烁问题，字体黑色到白色的闪烁
+    setTimeout(() => {
+      this.showBtn = true
+    }, 100)
   },
   methods: {
     // 按钮点击
@@ -246,7 +263,7 @@ export default {
       if (this.ripple) {
         // 每次点击时，移除上一次的类，再次添加，才能触发动画效果
         this.waveActive = false
-        this.$nextTick(function() {
+        this.$nextTick(function () {
           this.getWaveQuery(e)
         })
       }
@@ -254,7 +271,7 @@ export default {
     },
     // 查询按钮的节点信息
     getWaveQuery(e) {
-      this.getElQuery().then(res => {
+      this.getElQuery().then((res) => {
         // 查询返回的是一个数组节点
         let data = res[0]
         // 查询不到节点信息，不操作
@@ -290,13 +307,13 @@ export default {
     },
     // 获取节点信息
     getElQuery() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         let queryInfo = ''
         // 获取元素节点信息，请查看uniapp相关文档
         // https://uniapp.dcloud.io/api/ui/nodes-info?id=nodesrefboundingclientrect
         queryInfo = uni.createSelectorQuery().in(this)
         queryInfo.select('.hd-btn').boundingClientRect()
-        queryInfo.exec(data => {
+        queryInfo.exec((data) => {
           resolve(data)
         })
       })
@@ -329,7 +346,6 @@ export default {
 .hd-btn {
   position: relative;
   border: 0;
-  //border-radius: 10rpx;
   display: inline-block;
   overflow: hidden;
   line-height: 1;
@@ -358,7 +374,6 @@ export default {
   height: 200%;
   -webkit-transform: scale(0.5, 0.5);
   transform: scale(0.5, 0.5);
-  border: 1px solid currentColor;
   z-index: 0;
 }
 

@@ -1,7 +1,14 @@
 <template>
-  <view class="nav-super" :style="{height: myNavHeight + 'px'}">
+  <view class="nav-super" :style="{ height: myNavHeight + 'px' }">
     <view class="hd-navbar" :style="navStyle">
-      <view style="display: flex;align-items: center;height: 30px;margin-bottom: 7px;">
+      <view
+        style="
+          display: flex;
+          align-items: center;
+          height: 30px;
+          margin-bottom: 7px;
+        "
+      >
         <view class="action" @tap="BackPage">
           <text
             :class="backIconClass"
@@ -19,7 +26,12 @@
       </view>
       <view
         v-if="showLine"
-        style="width: 100%;height: 1px;transform: scaleY(0.5);background-color: #eee;"
+        style="
+          width: 100%;
+          height: 1px;
+          transform: scaleY(0.5);
+          background-color: #eee;
+        "
       ></view>
     </view>
   </view>
@@ -29,8 +41,8 @@
 export default {
   data() {
     return {
-      StatusBar: this.StatusBar,
-      CustomBar: this.CustomBar
+      StatusBar: this.statusBarHeight,
+      CustomBar: this.navBarHeight
     }
   },
   name: 'hd-navbar',
@@ -49,7 +61,7 @@ export default {
       if (this.navHidden) {
         return 0
       } else {
-        return this.CustomBar
+        return this.navBarHeight
       }
     }
   },

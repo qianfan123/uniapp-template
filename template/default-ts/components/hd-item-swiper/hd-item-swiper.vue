@@ -1,6 +1,6 @@
 <template>
   <view class="swipe" @click.stop="onClick">
-    <view class="li" :class="{show_delete:moved,show_confirm: showConfirm}">
+    <view class="li" :class="{ show_delete: moved, show_confirm: showConfirm }">
       <view class="content" @touchstart="touchStart" @touchend="touchEnd">
         <slot />
       </view>
@@ -8,7 +8,17 @@
         <div class="delete_">删除</div>
       </div>
       <div class="del confirm" @click.stop="onDeleteConfirm" v-if="showConfirm">
-        <div style="height:100%;" class="flex_center_column width_100">确认删除</div>
+        <div
+          style="
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          确认删除
+        </div>
       </div>
     </view>
   </view>
@@ -21,7 +31,6 @@ import { Vue, Component } from 'vue-property-decorator'
   name: 'hd-item-swiper',
   components: {}
 })
-
 export default class Index extends Vue {
   clientNum: any = {} // 记录开始滑动（x1）,结束滑动（x2）的鼠标指针的位置
   // canEmit = false;
@@ -66,7 +75,10 @@ export default class Index extends Vue {
     this.moved = false
     this.showConfirm = false
     // 判断滑动距离大于50，判定为滑动成功，否则失败
-    if (this.clientNum.x2 < this.clientNum.x1 && Math.abs(this.clientNum.x1) - Math.abs(this.clientNum.x2) > 50) {
+    if (
+      this.clientNum.x2 < this.clientNum.x1 &&
+      Math.abs(this.clientNum.x1) - Math.abs(this.clientNum.x2) > 50
+    ) {
       event.preventDefault()
       this.moved = true
     } else if (
@@ -124,6 +136,7 @@ export default class Index extends Vue {
   }
   .del.confirm {
     width: 104px;
+    height: 100%;
     transform: translateX(104px); /*默认x轴位移104px，使其隐藏*/
   }
   .content {
