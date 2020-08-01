@@ -135,22 +135,22 @@
 }
 
 @for $i from 1 to 100 {
-  .hd-pd-#{$i} {
+  .hd-pl-#{$i} {
     padding-left: $i * 2 + rpx;
   }
 }
 @for $i from 1 to 100 {
-  .hd-pd-#{$i} {
+  .hd-pt-#{$i} {
     padding-top: $i * 2 + rpx;
   }
 }
 @for $i from 1 to 100 {
-  .hd-pd-#{$i} {
+  .hd-pr-#{$i} {
     padding-right: $i * 2 + rpx;
   }
 }
 @for $i from 1 to 100 {
-  .hd-pd-#{$i} {
+  .hd-pb-#{$i} {
     padding-bottom: $i * 2 + rpx;
   }
 }
